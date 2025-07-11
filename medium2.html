@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Words Per Minute Calculator</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style1.css">
+    <h2>Medium</h2>
+    
+	
+
+       
+
+<body style="background-image: url(4.jpeg)">
+    <div id="appletContainer">
+        <h1><i>Words Per Minute Calculator</i></h1>
+        <textarea id="defaultText" readonly>Sarah and David spent the sunny afternoon picnicking in the park, enjoying sandwiches, fruit, and laughter.As the rain poured down outside, Emily curled up on the couch with a warm blanket and her favorite book</textarea>
+        <textarea id="inputText" placeholder="Start typing here..."></textarea>
+        <button id="calculateButton">Calculate WPM</button>
+        <div id="result"></div>
+        <div id="timerContainer">
+            <svg id="timerPath" viewBox="0 0 100 100">
+                <path d="M50 10 A 40 40 0 0 1 50 90 A 40 40 0 0 1 50 10"></path>
+            </svg>
+            <div id="timerText">00:00</div>
+        </div>
+        <div id="chartContainer">
+            <canvas id="wpmChart"></canvas>
+        </div>
+        <a href="medium3.html" style="text-decoration: none; color: white;">
+        <h5>Next</h5>
+    </a>
+    <a href="medium1.html" style="text-decoration: none; color: white;">
+        <h5>Back</h5>
+    </a>
+       
+    </div>
+</head>
+    <script>
+      
+        var timerDuration = 60; // Timer duration in seconds
+        var timerInterval; // Variable to store the timer interval
+        var startTime; // Variable to store start time
+        var wpmChart; // Variable to store Chart.js chart instance
+
+        // Function to start the timer
+        function startTimer() {
+            startTime = new Date().getTime();
+            updateTimer();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        // Function to update the timer display
+        function updateTimer() {
+            var currentTime = new Date().getTime() - startTime;
+            var minutes = Math.floor(currentTime / (1000 * 60));
+            var seconds = Math.floor((currentTime % (1000 * 60)) / 1000);
+            var timerText = document.getElementById("timerText");
+            timerText.textContent = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        }
+
+        // Function to stop the timer
+        function stopTimer() {
+            clearInterval(timerInterval); // Stop the timer interval
+        }
+
+        // Function to calculate words per minute (WPM) and accuracy
+        function calculateWPM() {
+            stopTimer(); // Stop the timer
+            var inputText = document.getElementById("inputText").value;
+            var defaultText = document.getElementById("defaultText").value;
+            var wordCount = countWords(inputText);
+            var accuracy = calculateAccuracy(inputText, defaultText);
+            var totalTimeInMinutes = (new Date().getTime() - startTime) / (1000 * 60); // Adjusting the time based on user typing speed
+            var wpm = Math.floor((wordCount / totalTimeInMinutes));
+            document.getElementById("result").innerText = "Your WPM: " + wpm + " | Accuracy: " + accuracy + "%";
+
+            // Update chart
+            updateChart(wpm, totalTimeInMinutes);
+        }
+
+        // Count words in the text
+        function countWords(text) {
+            var words = text.split(/\s+/);
+            return words.length;
+        }
+
+        // Calculate typing accuracy
+        function calculateAccuracy(inputText, defaultText) {
+            var inputWords = inputText.trim().split(/\s+/);
+            var defaultWords = defaultText.trim().split(/\s+/);
+            var correctCount = 0;
+            for (var i = 0; i < inputWords.length; i++) {
+                if (inputWords[i] === defaultWords[i]) {
+                    correctCount++;
+                }
+            }
+            return ((correctCount / inputWords.length) * 100).toFixed(2);
+        }
+
+          // Initialize Chart.js chart
+        function initChart() {
+            var ctx = document.getElementById('wpmChart').getContext('2d');
+            var wpmChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Words Per Minute (WPM)',
+                        data: [],
+                        fill: false,
+                        borderColor: '#4CAF50',
+                        borderWidth: 2,
+                    
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'WPM'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Time (seconds)'
+                            }
+                        }
+                    }
+                }
+            });
+            return wpmChart;
+        }
+
+        // Update chart with new data point
+        function updateChart(wpm) {
+            wpmChart.data.labels.push(document.getElementById("timerText").textContent);
+            wpmChart.data.datasets[0].data.push(wpm);
+            wpmChart.update();
+        }
+
+        // Event listener for typing in the textarea
+        document.getElementById("inputText").addEventListener("input", function() {
+            if (!timerInterval) {
+                startTimer(); // Start the timer when the user begins typing
+            }
+        });
+
+        // Event listener for clicking the "Calculate WPM" button
+        document.getElementById("calculateButton").addEventListener("click", function() {
+            calculateWPM(); // Calculate WPM when the button is clicked
+        });
+
+        // Initialize chart on page load
+        var wpmChart = initChart();
+    </script>
+</body>
+</html>

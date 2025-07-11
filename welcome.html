@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="style4.css">
+   
+<body>
+    
+
+    <div class="welcome-box">
+        <h1 id="welcomeMessage"></h1>
+        <p><i>To Typing Verve Journey!!</i></p>
+        <div class="sun">
+            <a href="Aboutus.html">About Us</a>
+            <a href="Test.html">Test</a>
+            <a href="Learn.html">Learn</a>
+        </div>
+    </div>
+   
+
+               
+
+    <script>
+        window.onload = function() {
+            const username = localStorage.getItem('username');
+            if (username) {
+                document.getElementById('welcomeMessage').textContent = `Welcome, ${username}`;
+            } else {
+                document.getElementById('welcomeMessage').textContent = `Welcome`;
+            }
+        };
+    </script>
+</body>
+</html>

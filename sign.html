@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div>
+                <h1>Typing Verve</h1>
+            </div>
+            <div style="margin-right:-80%;">
+               <a href="aboutus.html">About Us</a>
+               <a href="Test.html">Test</a>
+               <a href="Learn.html">Learn</a>
+                
+            </div>
+        </nav>
+    </header>
+    <div class="form-box">
+        <form class="signup-form">
+            <h1>Register</h1>
+            <div class="input-box">
+                <input type="text" id="email" placeholder="Email">
+                <!-- <label for="email">email</label> -->
+                <ion-icon name="mail-outline"></ion-icon>
+            </div>
+            <div class="input-box">
+                <input type="text" id="user" placeholder="username">
+                <!-- <label for="user">username</label> -->
+                <ion-icon name="person-outline"></ion-icon>
+            </div>
+            <div class="input-box">
+                <input type="text" id="pass" placeholder="password">
+                <!-- <label for="pass">password</label> -->
+                <ion-icon name="lock-closed-outline"></ion-icon>
+            </div>
+            <div class="checkbox">
+                <span>
+                    <input type="checkbox" id="register">
+                    <label for="register">I agree to terms and condition</label>
+
+                </span>
+            </div>
+
+            <button type="submit" class="submit-btn">submit</button>
+            
+            
+
+            <a href="typing.html" style="text-decoration: none;color:#ffff">
+                <h5 class="login-btn">Register before login</h5>
+            </a>
+
+        </form>
+    </div>
+    </div>
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            localStorage.setItem('username', username);
+            window.location.href = 'Welcome.html';
+        });
+    </script>
+</body>
+
+</html>

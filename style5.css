@@ -1,0 +1,43 @@
+
+.sun{
+    height: 400px;
+    width: 200px;
+    border: 2px solid black;
+    display: inline-block;
+    border-radius: 10px;
+    margin-left: 10px ;
+    box-shadow: 4px 4px 12px black;
+    transition: 1s;
+    margin-left: 80px;
+}
+.description{
+    padding: 0px 5px 0px 5px;
+    
+    
+  
+}
+img{
+    width: 100%;
+    max-height: 260px;
+}
+.sun:hover{
+    box-shadow: 8px 6px 10px black;
+
+}
+.mon{
+    margin-left: 600px;
+    margin-top: 100px;
+    
+}
+.mon a{
+    border: 2px solid black;
+    border-radius: 5px;
+    color: chocolate;
+    font-size: 20px;
+    text-decoration: none;
+    background-color: royalblue;
+}
+.mon a:hover{
+    background-color: aqua;
+}
+
